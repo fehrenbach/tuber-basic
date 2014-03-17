@@ -1,5 +1,7 @@
 (ns tuber-basic.core
-  (:gen-class))
+  (:import [com.oracle.truffle.api Truffle]))
+
+(println (.getName (Truffle/getRuntime)))
 
 (defn -main
   "I don't do a whole lot ... yet."
