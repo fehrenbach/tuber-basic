@@ -1,11 +1,14 @@
-BasicFile = Statements
-Statements = (Statement NEWLINE)* Statement [NEWLINE]
-<Statement> = Print
-Print = <"PRINT"> SPACE Expression
-<Expression> = NumberLiteral | StringLiteral | Identifier
-NumberLiteral = #"[0-9]+"
-StringLiteral = <'"'> #'[^"]*' <'"'>
-Identifier = #"[a-zA-Z]+"
+basicfile = statements
+statements = (statement NEWLINE)* statement [NEWLINE]
+<statement> = label | print | let | end
+label = #"[a-z][a-z0-9\-]+" <":">
+print = <"PRINT"> SPACE expression
+let = <"LET"> SPACE identifier SPACE <"="> SPACE expression
+end = <"END">
+<expression> = numberliteral | stringliteral | identifier
+numberliteral = #"[0-9]+"
+stringliteral = <'"'> #'[^"]*' <'"'>
+identifier = #"[a-zA-Z]+"
 
 <SPACE> = <" "+>
 <NEWLINE> = <"\n">
