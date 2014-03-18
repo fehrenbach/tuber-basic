@@ -20,7 +20,7 @@ public class Main {
 
 
         TruffleRuntime runtime = Truffle.getRuntime();
-        TuberRootNode rootNode = new TuberRootNode(new NumberLiteralNode(new BigInteger("42")));
+        TuberRootNode rootNode = new TuberRootNode(new PrintNode("Hello, the answer is %s\n", new NumberLiteralNode(new BigInteger("42"))));
         CallTarget target = runtime.createCallTarget(rootNode);
         Object result = target.call();
         System.out.println(result);
