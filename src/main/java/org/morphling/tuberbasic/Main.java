@@ -1,14 +1,14 @@
 package org.morphling.tuberbasic;
 
-import org.antlr.runtime.ANTLRStringStream;
+import com.oracle.truffle.api.CallTarget;
+import com.oracle.truffle.api.Truffle;
+import com.oracle.truffle.api.TruffleRuntime;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
-import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.misc.NotNull;
 
-import java.io.InputStream;
+import java.math.BigInteger;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -17,5 +17,12 @@ public class Main {
         TokenStream tokens = new CommonTokenStream(lexer);
         TuberBasicParser parser = new TuberBasicParser(tokens);
         System.out.println(parser);
+
+
+        TruffleRuntime runtime = Truffle.getRuntime();
+        TuberRootNode rootNode = new TuberRootNode(new NumberLiteralNode(new BigInteger("42")));
+        CallTarget target = runtime.createCallTarget(rootNode);
+        Object result = target.call();
+        System.out.println(result);
     }
 }
