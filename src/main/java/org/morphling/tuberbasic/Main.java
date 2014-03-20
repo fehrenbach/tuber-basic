@@ -12,11 +12,13 @@ import java.math.BigInteger;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        CharStream in = new ANTLRInputStream("PRINT 5");
+        CharStream in = new ANTLRInputStream("PRINT 5\n" +
+                "END");
         TuberBasicLexer lexer = new TuberBasicLexer(in);
         TokenStream tokens = new CommonTokenStream(lexer);
         TuberBasicParser parser = new TuberBasicParser(tokens);
         System.out.println(parser);
+        System.out.println(parser.basicfile());
 
 
         TruffleRuntime runtime = Truffle.getRuntime();

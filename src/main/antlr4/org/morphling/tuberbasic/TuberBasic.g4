@@ -1,20 +1,25 @@
 grammar TuberBasic;
-options { tokenVocab=TuberBasicLexer; }
+/* c.f. https://github.com/antlr/grammars-v4/ */
 
 basicfile
     :   statements
     ;
 
 statements
-    :   statement*
+    :   statement ('\n' statement)*
     ;
 
 statement
     :   print
+    |   end
     ;
 
 print
     :   'PRINT' expression
+    ;
+
+end
+    :   'END'
     ;
 
 expression
@@ -22,5 +27,13 @@ expression
     ;
 
 NumberLiteral
-    :   ('0'..'9')+
+    :   '-'?('0'..'9')+
     ;
+
+WS
+	: ( ' '
+	| '\t'
+	| '\n'
+	| '\r'
+	) -> channel(HIDDEN)
+;
