@@ -12,6 +12,16 @@ statements
 statement
     :   print
     |   end
+    |   fornext
+    |   cond
+    ;
+
+fornext
+    :   'FOR' variable 'FROM' expression 'TO' expression '\n' statements '\n' 'NEXT'
+    ;
+
+cond
+    :   'COND' ('\n' 'TEST' expression '\n' statements)+ 'DNOC'
     ;
 
 print
@@ -23,7 +33,18 @@ end
     ;
 
 expression
-    :   numberLiteral | stringLiteral
+    :   numberLiteral | stringLiteral | booleanLiteral | variable
+    |   expression '=' expression
+    |   expression 'AND' expression
+    |   twoaryfunction '(' expression ',' expression ')'
+    ;
+
+twoaryfunction
+    :   'mod'
+    ;
+
+booleanLiteral
+    :   'TRUE' | 'FALSE'
     ;
 
 numberLiteral
@@ -32,6 +53,14 @@ numberLiteral
 
 stringLiteral
     :   StringLiteral
+    ;
+
+variable
+    :   Variable
+    ;
+
+Variable
+    :   ('a'..'z')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
     ;
 
 NumberLiteral
