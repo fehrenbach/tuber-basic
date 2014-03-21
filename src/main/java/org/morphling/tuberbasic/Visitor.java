@@ -1,6 +1,7 @@
 package org.morphling.tuberbasic;
 
 import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -25,15 +26,22 @@ public class Visitor extends TuberBasicBaseVisitor<TuberNode> {
         // There has to be better code than this though.
         TuberNode[] nodes = new TuberNode[ctx.getChildCount()-2];
         for (int i = 0; i < ctx.getChildCount()-2; i++) {
-            nodes[i] = (TuberNode) visit(ctx.getChild(i + 2));
+            nodes[i] = visit(ctx.getChild(i + 2));
         }
         System.out.println(Arrays.toString(nodes));
         return new PrintNode(formatStringExpression, nodes);
     }
 
     @Override
-    public TuberNode visitExpression(@NotNull TuberBasicParser.ExpressionContext ctx) {
-        return super.visitExpression(ctx);
+    public TuberNode visitStatements(@NotNull TuberBasicParser.StatementsContext ctx) {
+        int actualStatementsCount = (ctx.getChildCount() + 1) / 2;
+        TuberNode[] statements = new TuberNode[actualStatementsCount];
+        statements[0] = visit(ctx.getChild(0));
+        for (int i = 0; i < actualStatementsCount - 1; i++) {
+            ParseTree child = ctx.getChild(2 * i + 2);
+            statements[i + 1] = visit(child);
+        }
+        return new StatementsNode(statements);
     }
 
     @Override

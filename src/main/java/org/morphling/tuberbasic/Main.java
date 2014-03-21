@@ -5,15 +5,14 @@ import com.oracle.truffle.api.Truffle;
 import com.oracle.truffle.api.TruffleRuntime;
 import org.antlr.v4.runtime.*;
 
-import java.math.BigInteger;
-
 public class Main {
     public static void main(String[] args) throws Exception {
-        CharStream in = new ANTLRInputStream("PRINT \"Hello, the answer is %s\" 42");
+        CharStream in = new ANTLRInputStream("PRINT \"Hello, the answer is %s%n\" 42\n" +
+                "PRINT \"foo%n\"");
         TuberBasicLexer lexer = new TuberBasicLexer(in);
         TokenStream tokens = new CommonTokenStream(lexer);
         TuberBasicParser parser = new TuberBasicParser(tokens);
-        ParserRuleContext tree = parser.print();
+        ParserRuleContext tree = parser.statements();
 
         Visitor visitor = new Visitor();
         TuberNode ast = visitor.visit(tree);
