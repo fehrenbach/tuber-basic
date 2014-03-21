@@ -10,7 +10,7 @@ public class Visitor extends TuberBasicBaseVisitor<TuberNode> {
     @Override
     public TuberNode visitStringLiteral(@NotNull TuberBasicParser.StringLiteralContext ctx) {
         String foo = ctx.getChild(0).getText();
-        String content = foo.substring(1, foo.length()-1);
+        String content = foo.substring(1, foo.length() - 1);
         return new StringLiteralNode(content);
     }
 
@@ -24,8 +24,8 @@ public class Visitor extends TuberBasicBaseVisitor<TuberNode> {
         TuberNode formatStringExpression = visit(ctx.formatstring);
         // child 0 is "PRINT", child 1 is the format string
         // There has to be better code than this though.
-        TuberNode[] nodes = new TuberNode[ctx.getChildCount()-2];
-        for (int i = 0; i < ctx.getChildCount()-2; i++) {
+        TuberNode[] nodes = new TuberNode[ctx.getChildCount() - 2];
+        for (int i = 0; i < ctx.getChildCount() - 2; i++) {
             nodes[i] = visit(ctx.getChild(i + 2));
         }
         System.out.println(Arrays.toString(nodes));
@@ -42,10 +42,5 @@ public class Visitor extends TuberBasicBaseVisitor<TuberNode> {
             statements[i + 1] = visit(child);
         }
         return new StatementsNode(statements);
-    }
-
-    @Override
-    public TuberNode visitBasicfile(@NotNull TuberBasicParser.BasicfileContext ctx) {
-        return super.visitBasicfile(ctx);
     }
 }
