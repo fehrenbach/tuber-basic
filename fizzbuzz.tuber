@@ -1,0 +1,14 @@
+FOR i FROM 1 TO 100
+  COND
+    TEST mod(i, 3) = 0 AND mod(i, 5) = 0
+      PRINT "FizzBuzz "
+    TEST mod(i, 3) = 0
+      PRINT "Fizz "
+    TEST mod(i, 5) = 0
+      PRINT "Buzz "
+    TEST TRUE
+      PRINT "%s " i
+  DNOC
+NEXT i
+PRINT "%n"
+END
