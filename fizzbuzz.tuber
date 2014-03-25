@@ -9,6 +9,6 @@ FOR i FROM 1 TO 100
     TEST TRUE
       PRINT "%s " i
   DNOC
-NEXT i
+ROF
 PRINT "%n"
 END

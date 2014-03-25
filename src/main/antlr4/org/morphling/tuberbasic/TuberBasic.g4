@@ -12,20 +12,20 @@ statements
 statement
     :   print
     |   end
-    |   fornext
+    |   forLoop
     |   cond
     ;
 
-fornext
-    :   'FOR' variable 'FROM' expression 'TO' expression '\n' statements '\n' 'NEXT'
+forLoop
+    :   'FOR' var=Variable 'FROM' from=expression 'TO' to=expression '\n' statements '\n' 'ROF'
     ;
 
 cond
-    :   'COND' ('\n' 'TEST' expression '\n' statements)+ 'DNOC'
+    :   'COND' ('\n' 'TEST' expression '\n' statements)+ '\n' 'DNOC'
     ;
 
 print
-    :   'PRINT' formatstring=stringLiteral (expression)*
+    :   'PRINT' formatstring=expression (expression)*
     ;
 
 end
@@ -33,30 +33,19 @@ end
     ;
 
 expression
-    :   numberLiteral | stringLiteral | booleanLiteral | variable
-    |   expression '=' expression
-    |   expression 'AND' expression
-    |   twoaryfunction '(' expression ',' expression ')'
+    :   NumberLiteral                                                        # NumberLiteral
+    |   StringLiteral                                                        # StringLiteral
+    |   'TRUE'                                                               # BooleanLiteralTrue
+    |   'FALSE'                                                              # BooleanLiteralFalse
+    |   Variable                                                             # Variable
+    |   left=expression '=' right=expression                                 # Equals
+    |   left=expression 'AND' right=expression                               # BooleanAnd
+    |   left=expression 'OR' right=expression                                # BooleanOr
+    |   function=functionName '(' first=expression ',' second=expression ')' # BinaryFunction
     ;
 
-twoaryfunction
+functionName
     :   'mod'
-    ;
-
-booleanLiteral
-    :   'TRUE' | 'FALSE'
-    ;
-
-numberLiteral
-    :   NumberLiteral
-    ;
-
-stringLiteral
-    :   StringLiteral
-    ;
-
-variable
-    :   Variable
     ;
 
 Variable

@@ -5,10 +5,11 @@ import com.oracle.truffle.api.Truffle;
 import com.oracle.truffle.api.TruffleRuntime;
 import org.antlr.v4.runtime.*;
 
+import java.io.FileInputStream;
+
 public class Main {
     public static void main(String[] args) throws Exception {
-        CharStream in = new ANTLRInputStream("PRINT \"Hello, the answer is %s%n\" 42\n" +
-                "PRINT \"foo%n\"");
+        CharStream in = new ANTLRInputStream(new FileInputStream(args[0]));
         TuberBasicLexer lexer = new TuberBasicLexer(in);
         TokenStream tokens = new CommonTokenStream(lexer);
         TuberBasicParser parser = new TuberBasicParser(tokens);

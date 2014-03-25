@@ -33,6 +33,55 @@ public class Visitor extends TuberBasicBaseVisitor<TuberNode> {
     }
 
     @Override
+    public TuberNode visitBinaryFunction(@NotNull TuberBasicParser.BinaryFunctionContext ctx) {
+        switch (ctx.function.getText()) {
+            case "mod":
+                return new ModNode(visit(ctx.first), visit(ctx.second));
+            default:
+                throw new RuntimeException("Unknown function " + ctx.function.getText());
+        }
+    }
+
+    @Override
+    public TuberNode visitBooleanAnd(@NotNull TuberBasicParser.BooleanAndContext ctx) {
+        return new AndNode(visit(ctx.left), visit(ctx.right));
+    }
+
+    @Override
+    public TuberNode visitForLoop(@NotNull TuberBasicParser.ForLoopContext ctx) {
+        String varName = ctx.var.getText();
+
+        TuberNode from = visit(ctx.from);
+        TuberNode to = visit(ctx.to);
+
+        TuberNode statements = visit(ctx.statements());
+
+        return new ForLoopNode(varName, from, to, statements);
+    }
+
+    @Override
+    public TuberNode visitVariable(@NotNull TuberBasicParser.VariableContext ctx) {
+        String name = ctx.getText();
+        return new VariableNode(name);
+    }
+
+    @Override
+    public TuberNode visitCond(@NotNull TuberBasicParser.CondContext ctx) {
+        TuberNode[] tests = new TuberNode[ctx.expression().size()];
+        TuberNode[] thens = new TuberNode[ctx.statements().size()];
+        for (int i = 0; i < ctx.expression().size(); i++) {
+            tests[i] = visit(ctx.expression(i));
+            thens[i] = visit(ctx.statements(i));
+        }
+        return new CondNode(tests, thens);
+    }
+
+    @Override
+    public TuberNode visitEquals(@NotNull TuberBasicParser.EqualsContext ctx) {
+        return new EqualsNode(visit(ctx.left), visit(ctx.right));
+    }
+
+    @Override
     public TuberNode visitStatements(@NotNull TuberBasicParser.StatementsContext ctx) {
         int actualStatementsCount = (ctx.getChildCount() + 1) / 2;
         TuberNode[] statements = new TuberNode[actualStatementsCount];
