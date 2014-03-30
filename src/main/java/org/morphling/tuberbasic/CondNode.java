@@ -1,6 +1,7 @@
 package org.morphling.tuberbasic;
 
 import com.oracle.truffle.api.frame.VirtualFrame;
+import com.oracle.truffle.api.nodes.ExplodeLoop;
 
 public class CondNode extends TuberNode {
     private final
@@ -16,6 +17,7 @@ public class CondNode extends TuberNode {
     }
 
     @Override
+    @ExplodeLoop
     public Object execute(VirtualFrame vf) {
         for (int i = 0; i < tests.length; i++) {
             if (tests[i].execute(vf) == true) {

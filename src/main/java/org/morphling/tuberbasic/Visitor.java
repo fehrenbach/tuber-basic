@@ -4,7 +4,6 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 
 public class Visitor extends TuberBasicBaseVisitor<TuberNode> {
     @Override
@@ -28,7 +27,6 @@ public class Visitor extends TuberBasicBaseVisitor<TuberNode> {
         for (int i = 0; i < ctx.getChildCount() - 2; i++) {
             nodes[i] = visit(ctx.getChild(i + 2));
         }
-        System.out.println(Arrays.toString(nodes));
         return new PrintNode(formatStringExpression, nodes);
     }
 
@@ -44,7 +42,19 @@ public class Visitor extends TuberBasicBaseVisitor<TuberNode> {
 
     @Override
     public TuberNode visitBooleanAnd(@NotNull TuberBasicParser.BooleanAndContext ctx) {
-        return new AndNode(visit(ctx.left), visit(ctx.right));
+        TuberNode left = visit(ctx.left);
+        TuberNode right = visit(ctx.right);
+        return new AndNode(left, right);
+    }
+
+    @Override
+    public TuberNode visitBooleanLiteralTrue(@NotNull TuberBasicParser.BooleanLiteralTrueContext ctx) {
+        return new BooleanLiteralNode(true);
+    }
+
+    @Override
+    public TuberNode visitBooleanLiteralFalse(@NotNull TuberBasicParser.BooleanLiteralFalseContext ctx) {
+        return new BooleanLiteralNode(false);
     }
 
     @Override

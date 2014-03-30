@@ -17,10 +17,8 @@ public class Main {
 
         Visitor visitor = new Visitor();
         TuberNode ast = visitor.visit(tree);
-        System.out.println("Result: " + ast);
 
         TruffleRuntime runtime = Truffle.getRuntime();
-        //TuberRootNode rootNode = new TuberRootNode(new PrintNode(new StringLiteralNode("Hello, the answer is %s\n"), new NumberLiteralNode(new BigInteger("42"))));
         TuberRootNode rootNode = new TuberRootNode(ast);
         CallTarget target = runtime.createCallTarget(rootNode);
         Object result = target.call();

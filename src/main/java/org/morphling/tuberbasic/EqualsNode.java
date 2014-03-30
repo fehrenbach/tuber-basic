@@ -9,6 +9,8 @@ public class EqualsNode extends TuberBinaryRelationNode {
 
     @Override
     public Object execute(VirtualFrame vf) {
-        return left.execute(vf).equals(right.execute(vf));
+        Object l = left.execute(vf);
+        Object r = right.execute(vf);
+        return l.equals(r);
     }
 }

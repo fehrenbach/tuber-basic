@@ -11,4 +11,3 @@ FOR i FROM 1 TO 100
   DNOC
 ROF
 PRINT "%n"
-END
