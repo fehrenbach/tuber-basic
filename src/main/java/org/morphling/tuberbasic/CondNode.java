@@ -20,7 +20,7 @@ public class CondNode extends TuberNode {
     @ExplodeLoop
     public Object execute(VirtualFrame vf) {
         for (int i = 0; i < tests.length; i++) {
-            if (tests[i].execute(vf) == true) {
+            if ((Boolean) tests[i].execute(vf) == true) {
                 return thens[i].execute(vf);
             }
         }

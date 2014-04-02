@@ -9,7 +9,7 @@ Compile and run
 
 Generate an executable uberjar with maven:
 
-> mvn package
+> mvn install
 
 Run with default JVM:
 

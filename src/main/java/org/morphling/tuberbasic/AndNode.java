@@ -9,7 +9,7 @@ public class AndNode extends TuberBinaryRelationNode {
 
     @Override
     public Object execute(VirtualFrame vf) {
-        if (left.execute(vf) == true) {
+        if ((Boolean) left.execute(vf) == true) {
             return right.execute(vf);
         }
         return false;
