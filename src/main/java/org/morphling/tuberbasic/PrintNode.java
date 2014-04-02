@@ -1,11 +1,10 @@
 package org.morphling.tuberbasic;
 
 import com.oracle.truffle.api.frame.VirtualFrame;
-import com.oracle.truffle.api.nodes.Node;
 
 public class PrintNode extends TuberNode {
     private final TuberNode formatStringExpression;
-    @Node.Children
+    @Children
     private final TuberNode[] children;
 
     public PrintNode(TuberNode formatStringExpression, TuberNode... children) {

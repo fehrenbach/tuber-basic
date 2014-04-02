@@ -1,10 +1,10 @@
 package org.morphling.tuberbasic;
 
 public abstract class TuberBinaryRelationNode extends TuberNode {
-    protected final
+    protected
     @Child
     TuberNode left;
-    protected final
+    protected
     @Child
     TuberNode right;
 

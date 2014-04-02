@@ -5,7 +5,7 @@ import com.oracle.truffle.api.nodes.RootNode;
 
 class TuberRootNode extends RootNode {
     @Child
-    private final TuberNode program;
+    private TuberNode program;
 
     TuberRootNode(TuberNode program) {
         this.program = program;

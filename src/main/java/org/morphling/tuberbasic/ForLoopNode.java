@@ -9,13 +9,13 @@ import java.math.BigInteger;
 public class ForLoopNode extends TuberNode {
     private final String variableName;
 
-    private final
+    private
     @Child
     TuberNode from;
-    private final
+    private
     @Child
     TuberNode to;
-    private final
+    private
     @Child
     TuberNode body;
 

@@ -5,10 +5,10 @@ import com.oracle.truffle.api.frame.VirtualFrame;
 import java.math.BigInteger;
 
 public class ModNode extends TuberNode {
-    private final
+    private
     @Child
     TuberNode first;
-    private final
+    private
     @Child
     TuberNode second;
 
