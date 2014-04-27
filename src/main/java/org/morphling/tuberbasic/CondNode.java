@@ -4,12 +4,8 @@ import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.nodes.ExplodeLoop;
 
 public class CondNode extends TuberNode {
-    private final
-    @Children
-    TuberNode[] tests;
-    private final
-    @Children
-    TuberNode[] thens;
+    @Children private final TuberNode[] tests;
+    @Children private final TuberNode[] thens;
 
     public CondNode(TuberNode[] tests, TuberNode[] thens) {
         this.tests = tests;

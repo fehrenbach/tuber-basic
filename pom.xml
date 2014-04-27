@@ -81,9 +81,9 @@
                         <configuration>
                             <artifactSet>
                                 <excludes>
-                                    <!-- not sure this is needed, maybe truffle is smart about using the jvm-provided truffle?
+                                    <!-- not sure this is needed, maybe truffle is smart about using the jvm-provided truffle? -->
                                     <exclude>com.oracle:truffle</exclude>
-                                    -->
+
                                 </excludes>
                             </artifactSet>
                             <transformers>

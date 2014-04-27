@@ -1,5 +1,6 @@
 package org.morphling.tuberbasic;
 
+import com.oracle.truffle.api.CompilerDirectives;
 import com.oracle.truffle.api.frame.FrameDescriptor;
 import com.oracle.truffle.api.frame.FrameSlot;
 import com.oracle.truffle.api.frame.VirtualFrame;
@@ -9,15 +10,9 @@ import java.math.BigInteger;
 public class ForLoopNode extends TuberNode {
     private final String variableName;
 
-    private
-    @Child
-    TuberNode from;
-    private
-    @Child
-    TuberNode to;
-    private
-    @Child
-    TuberNode body;
+    @Child private TuberNode from;
+    @Child private TuberNode to;
+    @Child private TuberNode body;
 
     public ForLoopNode(String varName, TuberNode from, TuberNode to, TuberNode statements) {
         this.variableName = varName;
